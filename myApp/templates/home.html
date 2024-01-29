@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Police Department System</h1>
+
+    <!-- Button for Citizen -->
+    <a href="{% url 'citizen' %}">
+        <button type="button">I'm a Citizen (wannabe)</button>
+    </a>
+
+    <!-- Button for Staff Member -->
+    <a href="{% url 'staff-login' %}">
+        <button type="button">I'm a Staff Member</button>
+    </a>
+</body>
+</html>
