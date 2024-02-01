@@ -1,33 +1,45 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
-from .forms import CustomUserCreationForm
-from .models import Profile
+#from django.contrib.auth.views import LoginView
+from django.contrib import messages
+from .forms import CitizenRegistrationForm
+from django.contrib.auth import authenticate, login
+from .models import CustomUser
+
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
+def citizen_login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('citizen_profile')
+        else:
+            messages.error(request, 'Invalid login credentials. Please try again.')
+    return render(request, 'citizen_login.html')
+
+def citizen_register(request):
+    if request.method == 'POST':
+        form = CitizenRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('citizen_login')
+    else:
+        form = CitizenRegistrationForm()
+    return render(request, 'citizen_register.html', {'form': form})
+
 def manage_slots(request):
     return render(request, 'manage_slots.html')
 
-def citizen(request):
-    return render(request, 'citizen.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            # Create Profile instance
-            profile = Profile(user=user, tax_code=form.cleaned_data['tax_code'], 
-                              date_of_birth=form.cleaned_data['date_of_birth'],
-                              place_of_birth=form.cleaned_data['place_of_birth'])
-            profile.save()
-            # Redirect or show success message
-            return redirect('login')  # Redirect to a login or success page
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+#class CitizenLoginView(LoginView):
+    #template_name = 'citizen_login.html'
 
-class CitizenLoginView(LoginView):
-    template_name = 'citizen_login.html' 
+
+def citizen_profile(request):
+    # Logic to display the citizen's profile
+    return render(request, 'citizen_profile.html')

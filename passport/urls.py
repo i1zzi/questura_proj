@@ -17,15 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from myApp.views import home, manage_slots, citizen, register, register, CitizenLoginView
+from myApp.views import home, citizen_login, citizen_register, citizen_profile, manage_slots
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('citizen/', citizen, name='citizen'),
     path('staff-login/', auth_views.LoginView.as_view(template_name='staff_login.html'), name='staff-login'),
     path('', home, name='home'), # PD Home URL
     path('manage-slots/', manage_slots, name='manage-slots'),
-    path('register/', register, name='register'),
-    path('citizen-login/', CitizenLoginView.as_view(), name='citizen_login'),
+    path('citizen-login/', citizen_login, name='citizen_login'),
+    path('citizen-register/', citizen_register, name='citizen_register'),
+    path('citizen/profile/', citizen_profile, name='citizen_profile'),
 ]
