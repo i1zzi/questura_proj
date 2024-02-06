@@ -1,19 +1,43 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home</title>
+    <style>
+        body {
+            background-image: url("{% static 'mainpage.png' %}");
+            background-size: 80%; /* Покрыть весь экран, сохраняя пропорции */
+            background-position: center; /* Центрировать изображение */
+            background-repeat: no-repeat;
+            margin: 0; /* Убрать стандартные отступы */
+            height: 100vh; /* Высота на весь экран */
+        }
+        .half {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            height: 100vh; /* Высота на весь экран */
+            cursor: pointer;
+        }
+        .left-half {
+            left: 0;
+        }
+        .right-half {
+            right: 0;
+        }
+        h1 {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 20px; /* Или любое другое значение для позиционирования */
+            color: white; /* Цвет текста */
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Police Department System</h1>
-
-    <!-- Button for Citizen -->
-    <a href="{% url 'citizen_login' %}">
-        <button type="button">I'm a Citizen (wannabe)</button>
-    </a>
-
-    <!-- Button for Staff Member -->
-    <a href="{% url 'staff-login' %}">
-        <button type="button">I'm a Staff Member</button>
-    </a>
+    <div class="half left-half" onclick="window.location='{% url 'citizen_login' %}'"></div>
+    <div class="half right-half" onclick="window.location='{% url 'staff-login' %}';"></div>
 </body>
 </html>

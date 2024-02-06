@@ -28,4 +28,5 @@ urlpatterns = [
     path('citizen-login/', citizen_login, name='citizen_login'),
     path('citizen-register/', citizen_register, name='citizen_register'),
     path('citizen/profile/', citizen_profile, name='citizen_profile'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
