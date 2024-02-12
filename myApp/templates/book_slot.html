@@ -1,0 +1,9 @@
+{% block content %}
+<h2>Бронирование слота</h2>
+<p>Вы выбрали слот: {{ slot.slot_name.name }} с {{ slot.start_time }} до {{ slot.end_time }} в {{ slot.location }}.</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Подтвердить бронирование</button>
+</form>
+{% endblock %}

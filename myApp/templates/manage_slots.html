@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Slots</title>
+</head>
+<body>
+    <h1>Manage Appointment Slots</h1>
+
+    <!-- Кнопка для создания нового слота -->
+    <a href="{% url 'slot_create' %}">
+        <button>Create New Slot</button>
+    </a>
+
+    <!-- Кнопка для просмотра списка слотов -->
+    <a href="{% url 'slot_list' %}">
+        <button>View Slots List</button>
+    </a>
+
+    <!-- Пример кнопки для редактирования слота (вам нужно будет добавить конкретный ID слота в URL) -->
+    <!-- <a href="{% url 'slot_edit' pk=1 %}"> -->
+    <!--     <button>Edit Slot</button> -->
+    <!-- </a> -->
+
+    <!-- Дополнительно: Можете добавить здесь другие элементы интерфейса, например, форму для фильтрации слотов -->
+
+</body>
+</html>

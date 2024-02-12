@@ -1,23 +1,10 @@
 """
 URL configuration for passport project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from myApp.views import home, citizen_login, citizen_register, citizen_profile, manage_slots
+from myApp.views import home, citizen_login, citizen_register, citizen_profile, manage_slots, SlotUpdateView, SlotCreateView, SlotListView, book_slot
 
 
 urlpatterns = [
@@ -29,4 +16,8 @@ urlpatterns = [
     path('citizen-register/', citizen_register, name='citizen_register'),
     path('citizen/profile/', citizen_profile, name='citizen_profile'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('slots/new', SlotCreateView.as_view(), name='slot_create'),
+    path('slots/list', SlotListView.as_view(), name='slot_list'),
+    path('slots/<int:pk>/edit/', SlotUpdateView.as_view(), name='slot_edit'),
+    path('slots/<int:slot_id>/book/', book_slot, name='book_slot'),
 ]

@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Citizen
+from .models import CustomUser, Citizen, Slot_Type, Appointment, Booking
 
 class CitizenRegistrationForm(forms.ModelForm):
     email = forms.EmailField(required=True)
@@ -24,3 +24,18 @@ class CitizenRegistrationForm(forms.ModelForm):
         if commit:
             citizen.save()
             return citizen
+
+class SlotForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['slot_name', 'start_time', 'end_time', 'location']
+        widgets = {
+            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+
+        }
+            
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = []  # Все данные определяются в представлении        

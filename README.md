@@ -1,2 +1,2 @@
 # questura_proj
-Uni project "Creating a passport office"
+Uni project "Creating a passport office booking system"
