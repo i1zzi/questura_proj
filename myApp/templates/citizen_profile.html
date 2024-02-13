@@ -1,31 +1,117 @@
-{% if user.is_authenticated %}
-    <h2>Мои бронирования</h2>
-    <ul>
-        {% for booking in booked_slots %}
-            <li>
-                {{ booking.slot.slot_name.name }}: {{ booking.slot.start_time }} - {{ booking.slot.end_time }} в {{ booking.slot.location }}
-                <!-- Можно добавить кнопку или ссылку для отмены бронирования, если это требуется -->
-            </li>
-        {% empty %}
-            <li>У вас нет забронированных слотов.</li>
-        {% endfor %}
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .profile-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .profile-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            position: relative;
+        }
+        .profile-header {
+            text-align: center;
+            color: #5b5959;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        li strong {
+            font-weight: 700;
+        }
+        .btn-logout {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #fc7fc0;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+        .btn-logout:hover {
+            background-color: #cd318a;
+        }
+        .book-button {
+            background-color: #ec7bd0;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+        .book-button:hover {
+            background-color: #d141ad;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+        }
+        .emoji:nth-child(1) { top: -10px; left: -10px; }
+        .emoji:nth-child(2) { top: -10px; right: -10px; }
 
-    <h2>Доступные слоты для бронирования</h2>
-    <ul>
-        {% for slot in avaliable_slots %} 
-            <li>
-                {{ slot.slot_name.name }}: {{ slot.start_time }} - {{ slot.end_time }} в {{ slot.location }}
-                <!-- Кнопка для перехода на страницу бронирования конкретного слота -->
-                <a href="{% url 'book_slot' slot.id %}"><button>Забронировать</button></a>
-            </li>
-        {% empty %}
-            <li>Нет доступных слотов для бронирования.</li>
-        {% endfor %}
-    </ul>
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-section">
+            <div class="emoji">🎀</div>
+            <div class="emoji">🎀</div>
+            <h2 class="profile-header">MY BOOKINGS</h2>
+            <ul>
+                {% for booking in booked_slots %}
+                <li><strong>{{ booking.slot.slot_name.name }}</strong>: {{ booking.slot.start_time }} - {{ booking.slot.end_time }} at {{ booking.slot.location }}</li>
+                {% empty %}
+                <li>You don't have any bookings.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="profile-section">
+            <div class="emoji">🎀</div>
+            <div class="emoji">🎀</div>
+            <h2 class="profile-header">AVAILABLE SLOTS</h2>
+            <ul>
+                {% for slot in avaliable_slots %}
+                <li><strong>{{ slot.slot_name.name }}</strong>: {{ slot.start_time }} - {{ slot.end_time }} at {{ slot.location }} <a href="{% url 'book_slot' slot.id %}"><button class="book-button">Book</button></a></li>
+                {% empty %}
+                <li>No available slots at this moment</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
-        <button type="submit">Выйти</button>
+        <button type="submit" class="btn-logout">Log out</button>
     </form>
-{% endif %}
 
+    <!-- Подключение Bootstrap JS и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,6 +1,82 @@
-<!-- citizen_register.html -->
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Registration</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Для позиционирования эмодзи */
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .btn-register {
+            margin-top: 1rem;
+            color: #fff;
+            background-color: #ec7bd0;
+            border-color: #e368c5;
+            position: relative; /* Для позиционирования бантиков */
+            overflow: hidden; /* Скрываем бантики вне кнопки */
+        }
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+        }
+        .emoji:nth-child(1) { top: -10px; right: -10px; }
+        .emoji:nth-child(2) { top: -10px; left: -10px; }
+        .emoji:nth-child(3) { bottom: -10px; right: -10px; }
+        .emoji:nth-child(4) { bottom: -10px; left: -10px; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <h2 class="text-center">Citizen Registration</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-register">
+                Register
+                
+            </button>
+        </form>
+    </div>
+    <!-- Подключение Bootstrap JS и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

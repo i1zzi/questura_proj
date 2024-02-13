@@ -1,23 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Login</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Для позиционирования эмодзи */
+        }
+        .btn-home {
+            margin-top: 1rem;
+            color: #fff;
+            background-color: #ec7bd0;
+            border-color: #e368c5;
+        }
+        .btn-home:hover {
+            color: #fff;
+            background-color: #d141ad;
+            border-color: #0056b3;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+        }
+        .emoji:nth-child(1) { top: -10px; right: -10px; } /* Верхний правый угол */
+        .emoji:nth-child(2) { top: -10px; left: -10px; }  /* Верхний левый угол */
+        .emoji:nth-child(3) { bottom: -10px; right: -10px; } /* Нижний правый угол */
+        .emoji:nth-child(4) { bottom: -10px; left: -10px; } /* Нижний левый угол */
+    </style>
 </head>
 <body>
-    <h2>Staff Login</h2>
-    <form method="post" action="{% url 'staff-login' %}">
-        {% csrf_token %}
-        <p>
-            <label for="id_username">Username:</label>
-            <input type="text" name="username" id="id_username" required>
-        </p>
-        <p>
-            <label for="id_password">Password:</label>
-            <input type="password" name="password" id="id_password" required>
-        </p>
-        <button type="submit">Login</button>
-        <a href="{% url 'home' %}"><button type="button">🏠 Home</button></a>
-
-    </form>
+    <div class="form-container">
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <div class="emoji">🎀</div>
+        <h2 class="text-center">Staff Login</h2>
+        <form method="post" action="{% url 'staff-login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username" class="form-label">Username:</label>
+                <input type="text" name="username" id="id_username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="id_password" class="form-label">Password:</label>
+                <input type="password" name="password" id="id_password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="{% url 'home' %}" class="btn btn-home">🏠 Home</a>
+        </form>
+    </div>
+    <!-- Подключение Bootstrap JS и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,33 +1,77 @@
-
 {% block content %}
-    <h2>Список доступных слотов</h2>
-    <table>
-        <thead>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f2daf5; /* Супер-девчачий фон */
+        color: #333;
+        margin: 20px; /* Чуть подвинуто от края */
+    }
+    h2 {
+        font-size: 24px;
+        color: #ff69b4; /* Девчачья тематика */
+    }
+    table {
+        width: 100%; /* Полная ширина для лучшего отображения */
+        border-collapse: collapse;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd; /* Легкая граница для разделения */
+    }
+    th {
+        background-color: #ff85c8; /* Светлее фон для заголовков */
+        color: white;
+    }
+    a {
+        text-decoration: none;
+    }
+    button {
+        background-color: #ff69b4; /* Девчачья тематика */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: transform 0.2s; /* Плавное увеличение при наведении */
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: #ff85c8;
+        transform: scale(1.1); /* Увеличение при наведении */
+    }
+</style>
+
+<h2>APPOINTMENT LIST</h2>
+<table>
+    <thead>
+        <tr>
+            <th> Slot type</th>
+            <th>🕓 From</th>
+            <th> To 🕓</th>
+            <th>📍 Location</th>
+            <th>🔎 Availability</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for slot in slot_list %}
             <tr>
-                <th>Slot type</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Location</th>
-                <th>Avaliability</th>
+                <td>{{ slot.slot_name.name }}</td>
+                <td>{{ slot.start_time }}</td>
+                <td>{{ slot.end_time }}</td>
+                <td>{{ slot.location }}</td>
+                <td>{{ slot.is_available|yesno:"Available,Non-available" }}</td>
             </tr>
-        </thead>
-        <tbody>
-            {% for slot in slot_list %}
-                <tr>
-                    <td>{{ slot.slot_name.name }}</td>
-                    <td>{{ slot.start_time }}</td>
-                    <td>{{ slot.end_time }}</td>
-                    <td>{{ slot.location }}</td>
-                    <td>{{ slot.is_avaliable|yesno:"Avaliable,Non-avaliale" }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5">No slots ara avaliable</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'slot_create' %}">
-        <button>Create New Slot</button>
-    </a>
+        {% empty %}
+            <tr>
+                <td colspan="5">No available slots</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'manage-slots' %}">
+    <button>Back</button>
+</a>
 {% endblock %}
