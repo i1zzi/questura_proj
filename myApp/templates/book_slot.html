@@ -3,7 +3,10 @@
 <p>Вы выбрали слот: {{ slot.slot_name.name }} с {{ slot.start_time }} до {{ slot.end_time }} в {{ slot.location }}.</p>
 <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <button type="submit">Подтвердить бронирование</button>
 </form>
+<form action="{% url 'citizen_profile' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Назад</button>
 {% endblock %}

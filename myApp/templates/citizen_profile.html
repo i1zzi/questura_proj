@@ -1,29 +1,31 @@
-
-
 {% if user.is_authenticated %}
+    <h2>Мои бронирования</h2>
+    <ul>
+        {% for booking in booked_slots %}
+            <li>
+                {{ booking.slot.slot_name.name }}: {{ booking.slot.start_time }} - {{ booking.slot.end_time }} в {{ booking.slot.location }}
+                <!-- Можно добавить кнопку или ссылку для отмены бронирования, если это требуется -->
+            </li>
+        {% empty %}
+            <li>У вас нет забронированных слотов.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Доступные слоты для бронирования</h2>
+    <ul>
+        {% for slot in avaliable_slots %} 
+            <li>
+                {{ slot.slot_name.name }}: {{ slot.start_time }} - {{ slot.end_time }} в {{ slot.location }}
+                <!-- Кнопка для перехода на страницу бронирования конкретного слота -->
+                <a href="{% url 'book_slot' slot.id %}"><button>Забронировать</button></a>
+            </li>
+        {% empty %}
+            <li>Нет доступных слотов для бронирования.</li>
+        {% endfor %}
+    </ul>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Выйти</button>
     </form>
-    <h2>Доступные слоты для бронирования</h2>
-
-    <!-- Вывод сообщений Django -->
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <ul>
-        <!-- Обратите внимание, что правильно 'available_slots', а не 'avaliable_slots' -->
-        {% for slot in avaliable_slots %}
-        <li>
-            {{ slot.slot_name.name }}: {{ slot.start_time }} - {{ slot.end_time }} в {{ slot.location }}
-            <!-- Кнопка для перехода на страницу бронирования конкретного слота -->
-            <a href="{% url 'book_slot' slot.id %}"><button>Забронировать</button></a>
-        </li>
-        {% endfor %}
-    </ul>
 {% endif %}
+

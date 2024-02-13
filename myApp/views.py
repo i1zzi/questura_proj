@@ -5,6 +5,7 @@ from .forms import CitizenRegistrationForm, SlotForm, BookingForm
 from django.contrib.auth import authenticate, login
 from .models import CustomUser, Slot_Type, Appointment, Booking
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 
 # Иморт для букинда аппойтментов
 from django.views.generic import CreateView, ListView, UpdateView
@@ -40,11 +41,31 @@ def citizen_register(request):
 #class CitizenLoginView(LoginView):
     #template_name = 'citizen_login.html'
 
+#  тут часть, которая нормальноработала, до того пока  я не начала пытаться показывать заброненые пользователем аппойтменты
+# def citizen_profile(request):
+#     avaliable_slots = Appointment.objects.filter(is_avaliable=True)
+#     print(avaliable_slots)  # Для отладки
+#     return render(request, 'citizen_profile.html', {'avaliable_slots': avaliable_slots})
 
+# тут то же, но с попыткой показывать заброненые слоты, и оно даже работает
+@login_required
 def citizen_profile(request):
+    # Получаем текущего пользователя
+    user = request.user
+    # Предполагаем, что у пользователя есть связь с моделью Citizen через OneToOneField
+    # и что модель Booking связана с Citizen
+    citizen = user.citizen
+    # Получаем все забронированные слоты для текущего пользователя
+    booked_slots = Booking.objects.filter(user=citizen)
+    # Получаем все доступные для бронирования слоты
     avaliable_slots = Appointment.objects.filter(is_avaliable=True)
-    print(avaliable_slots)  # Для отладки
-    return render(request, 'citizen_profile.html', {'avaliable_slots': avaliable_slots})
+    
+    # Передаем забронированные и доступные слоты в шаблон
+    context = {
+        'booked_slots': booked_slots,
+        'avaliable_slots': avaliable_slots,
+    }
+    return render(request, 'citizen_profile.html', context)
 
 # Начальная страница для ментов
 def manage_slots(request):
@@ -71,11 +92,12 @@ class SlotUpdateView(UpdateView):
     success_url = reverse_lazy('slot_list')
 
 #вот это букинг аппойтмента со свтороны пользователя, помни о том, как написано is_avaliable
+#вот тут начали менять 
 @login_required
 def book_slot(request, slot_id):
     slot = get_object_or_404(Appointment, pk=slot_id, is_avaliable=True)
     if request.method == 'POST':
-        form = BookingForm(request.POST)
+        form = BookingForm(request.POST, user=request.user)
         if form.is_valid():
             booking = form.save(commit=False)
             citizen_user = request.user.citizen
@@ -85,7 +107,7 @@ def book_slot(request, slot_id):
             slot.is_avaliable = False  # Обновляем статус слота
             slot.save()
             messages.success(request, f'Booking for {slot.slot_name.name} from {slot.start_time} to {slot.end_time} in {slot.location} was successful. Do not forget downlisted documents:   ')
-            return redirect('citizen_profile') # вот тут возвращает слот лист с ментовской части, а олжен профиль граждан на с  нфо о забронированном слоте 
+            return redirect('citizen_profile') # пофиксили, все ок
     else:
-        form = BookingForm()
+        form = BookingForm(user=request.user)
     return render(request, 'book_slot.html', {'form': form, 'slot': slot})
