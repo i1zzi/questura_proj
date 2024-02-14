@@ -1,11 +1,11 @@
 {% block content %}
-<!-- Подключение Bootstrap CSS -->
+<!--  Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
     body {
         font-family: 'Montserrat', sans-serif;
-        background-color: #efe3f1; /* Супер-девчачий фон */
+        background-color: #efe3f1; 
         color: #333;
         display: flex;
         justify-content: center;
@@ -18,8 +18,8 @@
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative; /* Для позиционирования эмодзи */
-        max-width: 730px; /* Управление шириной формы */
+        position: relative; /* emodji posotion */
+        max-width: 730px; /* form-sizeы */
     }
     h2 {
         text-shadow: 0px 0px 8px #ff69b4,
@@ -35,19 +35,19 @@
         font-weight: bold;
     }
     button {
-        background-color: #ec7bd0; /* Девчачья тематика */
+        background-color: #ec7bd0; 
         color: white;
         border: none;
         border-radius: 5px;
         padding: 10px 20px;
         cursor: pointer;
         font-size: 16px;
-        transition: transform 0.2s; /* Плавное увеличение при наведении */
+        transition: transform 0.2s; /* scale up  */
         margin-top: 10px;
     }
     button:hover {
         background-color: #ff85c8;
-        transform: scale(1.1); /* Увеличение при наведении */
+        transform: scale(1.1);
     }
     .emoji {
         position: absolute;
@@ -65,7 +65,7 @@
     <div class="emoji">🎀</div>
     <div class="emoji">🎀</div>
     <h2>BOOKING CONFORMATION</h2>
-    <p>You have selected: <strong>{{ slot.slot_name.name }}</strong> с <strong>{{ slot.start_time }}</strong> до <strong>{{ slot.end_time }}</strong> в <strong>{{ slot.location }}</strong>. Confirm your booking by selecting the <strong>SAME</strong> slot below in the list.</p>
+    <p>You have selected: <strong>{{ slot.slot_name.name }}</strong> at <strong>{{ slot.start_time }}</strong> till <strong>{{ slot.end_time }}</strong> in <strong>{{ slot.location }}</strong>. Confirm your booking by selecting the <strong>SAME</strong> slot below in the list.</p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
