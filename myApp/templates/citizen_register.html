@@ -6,8 +6,11 @@
     <title>Citizen Registration</title>
     <!-- Подключение Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,30 +51,41 @@
             position: relative; /* Для позиционирования бантиков */
             overflow: hidden; /* Скрываем бантики вне кнопки */
         }
+        .btn-home {
+            margin-top: 1rem;
+            margin-left: 13rem;
+            color: #fff;
+            background-color: #ec7bd0;
+            border-color: #e368c5;
+        }
+        .btn-home:hover {
+            color: #fff;
+            background-color: #d141ad;
+            border-color: #e368c5;
+        }
         .emoji {
             position: absolute;
-            font-size: 24px;
+            font-size: 40px;
         }
         .emoji:nth-child(1) { top: -10px; right: -10px; }
         .emoji:nth-child(2) { top: -10px; left: -10px; }
-        .emoji:nth-child(3) { bottom: -10px; right: -10px; }
-        .emoji:nth-child(4) { bottom: -10px; left: -10px; }
+
     </style>
 </head>
 <body>
     <div class="form-container">
         <div class="emoji">🎀</div>
         <div class="emoji">🎀</div>
-        <div class="emoji">🎀</div>
-        <div class="emoji">🎀</div>
+
         <h2 class="text-center">Citizen Registration</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-register">
                 Register
-                
             </button>
+            <a href="{% url 'home' %}" class="btn btn-home">🏠 Home</a>
+
         </form>
     </div>
     <!-- Подключение Bootstrap JS и зависимостей -->

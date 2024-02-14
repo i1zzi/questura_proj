@@ -6,8 +6,10 @@
     <title>CITIZEN LOGIN</title>
     <!-- Подключение Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,6 +42,20 @@
         .emoji:nth-child(2) { top: -10px; left: -10px; }
         .emoji:nth-child(3) { bottom: -10px; right: -10px; }
         .emoji:nth-child(4) { bottom: -10px; left: -10px; }
+
+        .alert {
+        max-height: 100px; /* Ограничение высоты блока с сообщениями */
+        margin-bottom: 20px; /* Добавление некоторого пространства между блоком сообщений и формой */
+        word-wrap: break-word; /* Перенос слов, которые не умещаются по ширине */
+        max-width: 400px; /* Максимальная ширина блока с сообщениями, чтобы предотвратить его растягивание */
+        }
+        h2 {
+        text-shadow: 0px 0px 8px #ff69b4,
+                     0px 0px 10px #fc83bf,
+                     0px 0px 12px #f1c2da;
+        text-align: center;
+        color: #c7508b; 
+    }
     </style>
 </head>
 <body>
@@ -48,7 +64,14 @@
         <div class="emoji">🎀</div>
         <div class="emoji">🎀</div>
         <div class="emoji">🎀</div>
-        <h2 class="text-center">Citizen Login</h2>
+        <h2 class="text-center">LOGIN</h2>
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <form method="post" action="{% url 'citizen_login' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -60,12 +83,14 @@
                 <input type="password" name="password" id="id_password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            
             <a href="{% url 'citizen_register' %}" class="btn btn-home">Register</a>
             <a href="{% url 'home' %}" class="btn btn-home">🏠 Home</a>
         </form>
         <p class="text-center">
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-link">Forgot your password?</a>
         </p>
+        
     </div>
     <!-- Подключение Bootstrap JS и зависимостей -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

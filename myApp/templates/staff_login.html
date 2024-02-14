@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Login</title>
+    <title>STAFF LOGIN</title>
     <!-- Подключение Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+
     <style>
         body {
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,7 +26,8 @@
             position: relative; /* Для позиционирования эмодзи */
         }
         .btn-home {
-            margin-top: 1rem;
+            margin-top: 0rem;
+            margin-left: 5rem;
             color: #fff;
             background-color: #ec7bd0;
             border-color: #e368c5;
@@ -34,12 +39,19 @@
         }
         .emoji {
             position: absolute;
-            font-size: 24px;
+            font-size: 34px;
         }
         .emoji:nth-child(1) { top: -10px; right: -10px; } /* Верхний правый угол */
         .emoji:nth-child(2) { top: -10px; left: -10px; }  /* Верхний левый угол */
         .emoji:nth-child(3) { bottom: -10px; right: -10px; } /* Нижний правый угол */
         .emoji:nth-child(4) { bottom: -10px; left: -10px; } /* Нижний левый угол */
+        h2 {
+        text-shadow: 0px 0px 8px #ff69b4,
+                     0px 0px 10px #fc83bf,
+                     0px 0px 12px #f1c2da;
+        text-align: center;
+        color: #c7508b; 
+    }
     </style>
 </head>
 <body>

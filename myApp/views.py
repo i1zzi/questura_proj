@@ -25,7 +25,7 @@ def citizen_login(request):
             login(request, user)
             return redirect('citizen_profile')
         else:
-            messages.error(request, 'Invalid login credentials. Please try again.')
+            messages.error(request, 'Invalid Login. Please try again or contact us at police@gov.it (You may consider sending us a pigeon, it might be faster than an email.)')
     return render(request, 'citizen_login.html')
 
 def citizen_register(request):
