@@ -25,7 +25,7 @@ def citizen_login(request):
             login(request, user)
             return redirect('citizen_profile')
         else:
-            messages.error(request, 'Invalid Login. Please try again or contact us at police@gov.it (You may consider sending us a pigeon, it might be faster than an email.)')
+            messages.error(request, 'Invalid Login. Please try again or contact us at police@govn.it (You shall consider sending us a pigeon, it might be faster than an email.)')
     return render(request, 'citizen_login.html')
 
 def citizen_register(request):
@@ -33,7 +33,7 @@ def citizen_register(request):
         form = CitizenRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('citizen_login')
+            return redirect('citizen_profile')
     else:
         form = CitizenRegistrationForm()
     return render(request, 'citizen_register.html', {'form': form})
@@ -85,7 +85,7 @@ class SlotListView(ListView):
     context_object_name = 'slot_list'
     template_name = 'slot_list.html'
 
-#в теории, редакирование слота, но хуй оно мне надо, если это можно делать через Django admin
+#в теории, редакирование слота, но зачем оно мне надо, если это можно делать через Django admin
 class SlotUpdateView(UpdateView):
     model = Appointment
     form_class = SlotForm

@@ -16,23 +16,70 @@
             height: 100vh;
             background-color: #efe3f1;
         }
+        .body-container {
+            perspective: 1000px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Стили формы */
         .form-container {
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* emodji posotion */
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            transform-style: preserve-3d; /* Включение 3D трансформаций для элемента */
         }
-        .btn, .btn-home {
-            margin-top: 1rem;
-            color: #fff;
-            background-color: #ec7bd0;
-            border-color: #e368c5;
+
+        @keyframes rotateCard {
+            0% {
+                transform: rotateY(0deg);
+                opacity: 1;
+            }
+            15% {
+                opacity: 0.5;
+            }
+            25% {
+                opacity: 0;
+            }
+            75% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: rotateY(2160deg);
+                opacity: 1;
+            }
         }
+
+        .btn-home {
+            background-color: #f2acdc; 
+            color: #ffffff; 
+            border-color: #eaa4d4;
+            margin-left: 50px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #f2acdc; 
+            color: #ffffff; 
+            border-color: #eaa4d4;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
         .btn:hover, .btn-home:hover {
             color: #fff;
-            background-color: #d141ad;
-            border-color: #c71585;
+            background-color: #e180c3;
+            border-color: #c16ea6;
+        }
+        .link {
+            color: #c16ea6;
+            margin-bottom: 50px;
         }
         .emoji {
             position: absolute;
@@ -44,7 +91,8 @@
         .emoji:nth-child(4) { bottom: -10px; left: -10px; }
 
         .alert {
-        max-height: 100px; 
+        display: none;
+        max-height: 120px; 
         margin-bottom: 20px; 
         word-wrap: break-word; /* hyphenation of words that do not fit in width */
         max-width: 400px; /* max block width */
@@ -85,13 +133,49 @@
             <button type="submit" class="btn btn-primary">Login</button>
             
             <a href="{% url 'citizen_register' %}" class="btn btn-home">Register</a>
-            <a href="{% url 'home' %}" class="btn btn-home">🏠 Home</a>
+            <a href="{% url 'home' %}" class="btn btn-home">🏠 </a>
         </form>
         <p class="text-center">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-link">Forgot your password?</a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="link">Forgot your password?</a>
         </p>
-        
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+       
+    <script>
+        // Предварительно установим переменную hasMessages в false
+        var hasMessages = false;
+    </script>
+    
+    {% if messages %}
+    <script>
+        // Если сообщения есть, то изменяем hasMessages на true
+        hasMessages = true;
+    </script>
+    {% endif %}
+    
+    <script>
+        // if has message run
+        if (hasMessages) {
+            window.addEventListener('load', function() {
+                confetti({
+                    particleCount: 300,
+                    spread: 360,
+                    gravity: 0.7,                    
+                });
+                const formContainer = document.querySelector('.form-container');
+                formContainer.style.animation = 'rotateCard 2.2s ease-out none ';
+
+                setTimeout(() => {
+                const alertBox = document.querySelector('.alert');
+                if (alertBox) {
+                    alertBox.style.display = 'block'; // Или 'flex', 'inline-block', в зависимости от вашего layout
+                }
+                }, 1900); // 1900 миллисекунд, до момента окончания анимации
+            });  
+        }
+    </script>
     </div>
+    
+    
     <!--  Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

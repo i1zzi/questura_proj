@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import CustomUser, Citizen, Slot_Type, Appointment, Booking
+from django.utils import timezone
 
 # Citizen registration form, also usese a Django User auth. form, but with some modifications via CustomUser
 class CitizenRegistrationForm(forms.ModelForm):
@@ -26,9 +27,16 @@ class CitizenRegistrationForm(forms.ModelForm):
         if commit:
             citizen.save()
             return citizen
-
+    
 # Uses basic Django ModelForm, the major info about the appointment
 class SlotForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(SlotForm, self).__init__(*args, **kwargs)
+        now = timezone.now()
+        # Установка формата даты/времени в соответствии с требованиями HTML5
+        self.fields['start_time'].widget.attrs['min'] = now.strftime("%Y-%m-%dT%H:%M")
+        self.fields['end_time'].widget.attrs['min'] = now.strftime("%Y-%m-%dT%H:%M")
+        
     class Meta:
         model = Appointment
         fields = ['slot_name', 'start_time', 'end_time', 'location']
@@ -37,8 +45,25 @@ class SlotForm(forms.ModelForm):
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
 
         }
+    # Server validation for dateTime
+    def clean_start_time(self):
+        start_time = self.cleaned_data['start_time']
+        if start_time < timezone.now():
+            raise ValidationError("Please choose the valid time")
+        return start_time
+
+    def clean_end_time(self):
+        end_time = self.cleaned_data['end_time']
+        #  end_time cheking
+        start_time = self.cleaned_data.get('start_time')
+        if end_time < timezone.now():
+            raise ValidationError()
+        if start_time and end_time < start_time:
+            raise ValidationError()
+        return end_time
+
             
-# Still has some issuies with double booking. Basically, 'cos of the clean metho. I developed an integreate it after tha major part,
+# Still has some issuies with double booking. Basically, 'cos of the clean method. I developed an integreate it after tha major part,
 # so i was not able to fix it in last minute, sorry 
 class BookingForm(forms.ModelForm):
     class Meta:

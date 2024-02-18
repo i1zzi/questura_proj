@@ -25,6 +25,18 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
         }
+
+        .btn-primary {
+            background-color: #ec7bd0;
+            border-color: #e368c5;
+            position: relative; /* Для возможности перемещения */
+            transition: top 0.5s, left 0.5s, bottom 0.5s; /* Плавное перемещение */
+        }
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #b45b9d;
+            border-color: #b93097;
+        }
         .btn-home {
             margin-top: 0rem;
             margin-left: 5rem;
@@ -34,8 +46,8 @@
         }
         .btn-home:hover {
             color: #fff;
-            background-color: #d141ad;
-            border-color: #0056b3;
+            background-color: #b45b9d;
+            border-color: #b93097;
         }
         .emoji {
             position: absolute;
@@ -79,5 +91,38 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const triggerDistance = 100; // Расстояние, на котором кнопка начинает "убегать"
+            const loginButton = document.querySelector('button[type="submit"]'); // Выбираем кнопку входа по типу 'submit'
+            const distance = 200; // Расстояние от курсора, на которое "бежит" кнопка
+    
+            document.addEventListener('mousemove', function(event) {
+                const buttonRect = loginButton.getBoundingClientRect();
+                let deltaX = event.clientX - buttonRect.left - buttonRect.width / 2;
+                let deltaY = event.clientY - buttonRect.top - buttonRect.height / 2;
+    
+                let newX = loginButton.offsetLeft;
+                let newY = loginButton.offsetTop;
+    
+                // Определяем направление для "бегства" кнопки
+                if (Math.abs(deltaX) < distance && Math.abs(deltaY) < distance) {
+                    newX -= Math.sign(deltaX) * distance;
+                    newY -= Math.sign(deltaY) * distance;
+                }
+    
+                // Проверка границ окна браузера
+                newX = Math.max(0, Math.min(newX, window.innerWidth - buttonRect.width));
+                newY = Math.max(0, Math.min(newY, window.innerHeight - buttonRect.height));
+    
+                loginButton.style.position = 'fixed';
+                loginButton.style.left = newX + 'px';
+                loginButton.style.top = newY + 'px';
+            });
+        });
+    </script>
+    
+    
 </body>
 </html>

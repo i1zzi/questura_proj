@@ -46,22 +46,28 @@
         .btn-register {
             margin-top: 1rem;
             color: #fff;
-            background-color: #ec7bd0;
-            border-color: #e368c5;
+            background-color: #f2acdc;
+            border-color: #eaa4d4;
             position: relative; 
             overflow: hidden; /* hide emodji */
+        }
+        .btn-register:hover {
+
+            color: #fff;
+            background-color: #e180c3;
+            border-color: #c16ea6;
         }
         .btn-home {
             margin-top: 1rem;
             margin-left: 13rem;
             color: #fff;
-            background-color: #ec7bd0;
-            border-color: #e368c5;
+            background-color: #f2acdc;
+            border-color: #eaa4d4;
         }
         .btn-home:hover {
             color: #fff;
-            background-color: #d141ad;
-            border-color: #e368c5;
+            background-color: #e180c3;
+            border-color: #c16ea6;
         }
         .emoji {
             position: absolute;
@@ -84,7 +90,7 @@
             <button type="submit" class="btn btn-register">
                 Register
             </button>
-            <a href="{% url 'home' %}" class="btn btn-home">🏠 Home</a>
+            <a href="{% url 'home' %}" class="btn btn-home">🏠</a>
 
         </form>
     </div>
