@@ -43,8 +43,21 @@
             border-radius: 0.25rem;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
+        .btn-home {
+            margin-top: 1rem;
+            margin-left: 1rem;
+            color: #fff;
+            background-color: #f2acdc;
+            border-color: #eaa4d4;
+        }
+        .btn-home:hover {
+            color: #fff;
+            background-color: #e180c3;
+            border-color: #c16ea6;
+        }
         .btn-register {
             margin-top: 1rem;
+            margin-left: 13rem;
             color: #fff;
             background-color: #f2acdc;
             border-color: #eaa4d4;
@@ -57,25 +70,20 @@
             background-color: #e180c3;
             border-color: #c16ea6;
         }
-        .btn-home {
-            margin-top: 1rem;
-            margin-left: 13rem;
-            color: #fff;
-            background-color: #f2acdc;
-            border-color: #eaa4d4;
-        }
-        .btn-home:hover {
-            color: #fff;
-            background-color: #e180c3;
-            border-color: #c16ea6;
-        }
+        
         .emoji {
             position: absolute;
             font-size: 40px;
         }
         .emoji:nth-child(1) { top: -10px; right: -10px; }
         .emoji:nth-child(2) { top: -10px; left: -10px; }
-
+        h2 {
+        text-shadow: 0px 0px 8px #ff69b4,
+                     0px 0px 10px #fc83bf,
+                     0px 0px 12px #f1c2da;
+        text-align: center;
+        color: #aa4a7a; 
+    }
     </style>
 </head>
 <body>
@@ -87,10 +95,10 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
+            <a href="{% url 'home' %}" class="btn btn-home">🏠</a>
             <button type="submit" class="btn btn-register">
                 Register
             </button>
-            <a href="{% url 'home' %}" class="btn btn-home">🏠</a>
 
         </form>
     </div>

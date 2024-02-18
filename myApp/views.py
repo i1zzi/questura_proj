@@ -76,8 +76,8 @@ def manage_slots(request):
 class SlotCreateView(CreateView):
     model = Appointment
     form_class = SlotForm
-    template_name = 'slot_create.html' # пока нет тэмплэйта
-    success_url = reverse_lazy('slot_list')  # пока нет URL с именем 'slot_list'
+    template_name = 'slot_create.html' 
+    success_url = reverse_lazy('slot_list')  
 
 #view all the slots by police
 class SlotListView(ListView):
@@ -105,7 +105,7 @@ def book_slot(request, slot_id):
             booking.user = citizen_user
             booking.slot = slot
             booking.save()
-            slot.is_avaliable = False  # updatin the status
+            slot.is_avaliable = False  # updating the status
             slot.save()
             messages.success(request, f'Booking for {slot.slot_name.name} from {slot.start_time} to {slot.end_time} in {slot.location} was successful. Do not forget downlisted documents:   ')
             return redirect('citizen_profile') 
