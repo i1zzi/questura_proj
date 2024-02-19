@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import CustomUser, Citizen, Slot_Type, Appointment, Booking
 from django.utils import timezone
+from datetime import datetime
 
 # Citizen registration form, also usese a Django User auth. form, but with some modifications via CustomUser
 class CitizenRegistrationForm(forms.ModelForm):
@@ -13,7 +14,12 @@ class CitizenRegistrationForm(forms.ModelForm):
         model = Citizen
         fields = ('first_name', 'last_name', 'date_of_birth', 'place_of_birth', 'tax_code')
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'date_of_birth': forms.DateInput(
+                attrs={
+                    'type': 'date',
+                    'min': '1900-01-01',  # Минимальная дата
+                    'max': datetime.now().strftime('%Y-%m-%d'),  # Максимальная дата - сегодня
+                })
         }
     
     def save(self, commit=True):
